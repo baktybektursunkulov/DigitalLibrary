@@ -13,7 +13,11 @@ services:
       POSTGRES_PASSWORD: postgres
 
   digital-library:
+    image: digital-library-digital-library
     build:
       context: .
       dockerfile: Dockerfile
-
+    environment:
+      - DATASOURCE_URL=jdbc:postgresql://postgres:5432/digital_library?serverTimezone=UTC
+      - TOKEN_SECRET=jwtappdemo
+      - TOKEN_EXPIRED=3600000
