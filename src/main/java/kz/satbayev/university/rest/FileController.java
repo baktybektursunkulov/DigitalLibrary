@@ -51,6 +51,7 @@ public class FileController {
         books.setDirection(3L);
         books.setYear(request.getYear());
         books.setIs_deleted(Boolean.FALSE);
+        books.setDescription(request.getDescription());
         booksRepository.save(books);
         return ResponseEntity.ok().body(minioService.uploadFile(request));
     }

@@ -36,4 +36,6 @@ public class FileDto implements Serializable {
 
     private Long size;
 
+    private String description;
+
 }

@@ -31,4 +31,7 @@ public class Books{
 
     @Column(name = "is_deleted")
     private Boolean is_deleted;
+
+    @Column(name = "description")
+    private String description;
 }

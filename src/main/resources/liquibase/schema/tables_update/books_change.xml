@@ -10,4 +10,19 @@
                                  referencedColumnNames="id"
                                  referencedTableName="direction"/>
     </changeSet>
+    <!-- changeSet by Baktybek-->
+    <changeSet id="1.0.8" author="baktybek">
+        <addColumn tableName="books">
+            <column name="description" type="text"/>
+        </addColumn>
+    </changeSet>
+    <!-- changeSet by Baktybek-->
+    <changeSet id="1.0.10" author="baktybek">
+        <modifyDataType tableName="picture" columnName="books_id" newDataType="BIGINT"/>
+        <addForeignKeyConstraint baseColumnNames="books_id"
+                                 baseTableName="picture"
+                                 constraintName="picture_books_id_fk"
+                                 referencedColumnNames="id"
+                                 referencedTableName="books"/>
+    </changeSet>
 </databaseChangeLog>
