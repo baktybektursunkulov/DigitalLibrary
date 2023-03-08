@@ -66,6 +66,11 @@ public class MinioService {
                     .object(request.getFile().getOriginalFilename())
                     .stream(request.getFile().getInputStream(), request.getFile().getSize(), -1)
                     .build());
+            minioClient.putObject(PutObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(request.getPicture().getOriginalFilename())
+                    .stream(request.getPicture().getInputStream(), request.getPicture().getSize(), -1)
+                    .build());
         } catch (Exception e) {
             log.error("Happened error when upload file: ", e);
         }

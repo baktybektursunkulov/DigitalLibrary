@@ -30,6 +30,9 @@ public class FileDto implements Serializable {
     @SuppressWarnings("java:S1948")
     private MultipartFile file;
 
+    @SuppressWarnings("java:S1948")
+    private MultipartFile picture;
+
     private Integer year;
 
     private String url;

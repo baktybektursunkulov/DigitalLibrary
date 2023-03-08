@@ -3,7 +3,9 @@ package kz.satbayev.university.rest;
 
 import kz.satbayev.university.dto.FileDto;
 import kz.satbayev.university.model.Books;
+import kz.satbayev.university.model.Picture;
 import kz.satbayev.university.repository.BooksRepository;
+import kz.satbayev.university.repository.PictureRepository;
 import kz.satbayev.university.service.MinioService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
@@ -27,6 +29,9 @@ public class FileController {
     private MinioService minioService;
     @Autowired
     private BooksRepository booksRepository;
+
+    @Autowired
+    private PictureRepository pictureRepository;
 
     @GetMapping
     public ResponseEntity<Object> getFiles() {
@@ -53,6 +58,13 @@ public class FileController {
         books.setIs_deleted(Boolean.FALSE);
         books.setDescription(request.getDescription());
         booksRepository.save(books);
+
+        Picture picture=new Picture();
+        picture.setBooks_id(books.getId());
+        picture.setIs_deleted(Boolean.FALSE);
+        picture.setUrl_minio(minioService.getPreSignedUrl(request.getPicture().getOriginalFilename()));
+
+        pictureRepository.save(picture);
         return ResponseEntity.ok().body(minioService.uploadFile(request));
     }
 
