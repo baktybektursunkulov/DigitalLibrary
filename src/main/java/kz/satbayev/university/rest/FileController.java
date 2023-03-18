@@ -3,9 +3,7 @@ package kz.satbayev.university.rest;
 
 import kz.satbayev.university.dto.FileDto;
 import kz.satbayev.university.model.Books;
-import kz.satbayev.university.model.Picture;
 import kz.satbayev.university.repository.BooksRepository;
-import kz.satbayev.university.repository.PictureRepository;
 import kz.satbayev.university.service.MinioService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.IOUtils;
@@ -30,8 +28,6 @@ public class FileController {
     @Autowired
     private BooksRepository booksRepository;
 
-    @Autowired
-    private PictureRepository pictureRepository;
 
     @GetMapping
     public ResponseEntity<Object> getFiles() {
@@ -42,30 +38,28 @@ public class FileController {
     public ResponseEntity<Object> getFile(HttpServletRequest request) throws IOException {
         String pattern = (String) request.getAttribute(BEST_MATCHING_PATTERN_ATTRIBUTE);
         String filename = new AntPathMatcher().extractPathWithinPattern(pattern, request.getServletPath());
+        if(filename.endsWith("pdf"))
         return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(IOUtils.toByteArray(minioService.getObject(filename)));
+        else return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
                 .body(IOUtils.toByteArray(minioService.getObject(filename)));
     }
 
     @PostMapping(value = "/upload")
     public ResponseEntity<Object> upload(@ModelAttribute FileDto request) {
-        Books books=new Books();
+        Books books = new Books();
         books.setName(request.getTitle());
         books.setAuthor(request.getAuthor());
         books.setUrl_minio(minioService.getPreSignedUrl(request.getFile().getOriginalFilename()));
-        books.setDirection(3L);
+        books.setDirection(5L);
         books.setYear(request.getYear());
         books.setIs_deleted(Boolean.FALSE);
         books.setDescription(request.getDescription());
+        books.setUrl_picture(minioService.getPreSignedUrl(request.getPicture().getOriginalFilename()));
         booksRepository.save(books);
-
-        Picture picture=new Picture();
-        picture.setBooks_id(books.getId());
-        picture.setIs_deleted(Boolean.FALSE);
-        picture.setUrl_minio(minioService.getPreSignedUrl(request.getPicture().getOriginalFilename()));
-
-        pictureRepository.save(picture);
-        return ResponseEntity.ok().body(minioService.uploadFile(request));
+        return ResponseEntity.ok()
+                .body(minioService.uploadFile(request));
     }
-
 }

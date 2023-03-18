@@ -34,4 +34,7 @@ public class Books{
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "url_picture")
+    private String url_picture;
 }
