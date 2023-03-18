@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui/**",
             "/file/**",
             "/direction",
-            "/books/**"
+            "/books/**",
+            "/picture/**"
             // other public endpoints of your API may be appended to this array
     };
     @Override

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,10 +21,10 @@ public class PictureController {
     @Autowired
     private PictureRepository pictureRepository;
 
-    @GetMapping()
-    public ResponseEntity<List<Picture>> getFiles() {
-        List<Picture> pictures=pictureRepository.findAll();
-        return ResponseEntity.ok(pictures);
+    @GetMapping("/{book_id}")
+    public ResponseEntity<Picture> getFiles(@PathVariable Long book_id) {
+        Picture picture=pictureRepository.findByBookId(book_id);
+        return ResponseEntity.ok(picture);
     }
 
 }
