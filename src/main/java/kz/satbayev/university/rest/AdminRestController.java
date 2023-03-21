@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -41,6 +42,7 @@ public class AdminRestController {
         List<User> users = userService.getAll();
         List<AdminUserDto> results = new ArrayList<>();
         for (User user : users) {
+            if(Objects.equals(user.getRoles().get(0).getName(), "ROLE_ADMIN"))continue;
             AdminUserDto result = AdminUserDto.fromUser(user);
             results.add(result);
         }
