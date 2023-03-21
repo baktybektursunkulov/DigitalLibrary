@@ -44,11 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // -- Swagger UI v3 (OpenAPI)
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/file/**",
-            "/direction",
-            "/books/**",
-            "/picture/**"
             // other public endpoints of your API may be appended to this array
+            "/file/**",
     };
     @Override
     protected void configure(HttpSecurity http) throws Exception {
