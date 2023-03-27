@@ -66,6 +66,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User findById(Long id) {
         User result = userRepository.findById(id).orElse(null);
 
@@ -82,5 +87,10 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
         log.info("IN delete - user with id: {} successfully deleted");
+    }
+
+    @Override
+    public void updatePassword(Long user, String password) {
+        userRepository.updatePassword(user,password);
     }
 }
