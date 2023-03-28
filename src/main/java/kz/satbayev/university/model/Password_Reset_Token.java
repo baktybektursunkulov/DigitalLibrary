@@ -24,14 +24,11 @@ public class Password_Reset_Token {
     @Column(name = "user")
     private Long user;
 
-
     @Column(name = "expiry_date")
     private Timestamp expiry_date;
 
-
     public boolean isExpired(Date currentTime) {
-        return (currentTime.getTime() - currentTime.getTime()) < 0;
+        return (expiry_date.getTime() - currentTime.getTime()) < 0;
     }
-    // getters and setters
 }
 
