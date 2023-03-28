@@ -91,6 +91,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updatePassword(Long user, String password) {
-        userRepository.updatePassword(user,password);
+        userRepository.updatePassword(user,passwordEncoder.encode(password));
     }
 }

@@ -7,8 +7,9 @@ import org.checkerframework.checker.units.qual.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class PasswordService {
         Password_Reset_TokenRepository.saveToken(user,token,timestamp);
     }
 
-    public void sendPasswordResetEmail(User user) {
+    public void sendPasswordResetEmail(User user) throws MessagingException, IOException {
         Password_Reset_Token password_Reset_Token = getPassword_Reset_Token(user.getId());
         if (password_Reset_Token == null) {
             throw new IllegalStateException("Password reset token not found");

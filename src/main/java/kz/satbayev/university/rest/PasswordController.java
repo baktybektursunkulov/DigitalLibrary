@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class PasswordController {
     private PasswordService passwordService;
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) throws MessagingException, IOException {
         String email = request.get("email");
         User user = userService.findByEmail(email);
         if (user == null) {
