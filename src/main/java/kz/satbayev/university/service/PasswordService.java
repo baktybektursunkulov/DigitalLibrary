@@ -56,7 +56,7 @@ public class PasswordService {
         return Password_Reset_TokenRepository.findByToken(token);
     }
 
-    public void deletePassword_Reset_Token(Long token) {
-        Password_Reset_TokenRepository.deleteById(token);
+    public void deletePassword_Reset_Token(Long user) {
+        Password_Reset_TokenRepository.deleteByUserId(user);
     }
 }

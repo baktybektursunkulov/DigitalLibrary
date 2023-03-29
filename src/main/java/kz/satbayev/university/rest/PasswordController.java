@@ -54,6 +54,7 @@ public class PasswordController {
         }
         Long user = Password_Reset_Token.getUser();
         userService.updatePassword(user, password);
+        passwordService.deletePassword_Reset_Token(user);
         return ResponseEntity.ok("Password reset successfully");
     }
 }
