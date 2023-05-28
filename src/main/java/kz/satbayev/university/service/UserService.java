@@ -1,11 +1,12 @@
 package kz.satbayev.university.service;
 
 import kz.satbayev.university.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-
+@Service
 public interface UserService {
 
     User register(User user);
