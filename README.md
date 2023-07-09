@@ -17,3 +17,7 @@ local-dev
 docker-compose up -d --build 
 
 ```
+
+#### Swagger
+
+http://localhost:8075/swagger-ui/index.html
